@@ -61,13 +61,22 @@ const createCalculator = function createCalculatorButtons() {
     });
 }
 
-
 const calculator = function calculatorController() {
     let firstNum = null;
     let secondNum = null;
     let operator = null;
 
     createCalculator();
+    const buttons = [...document.querySelectorAll('.btn')];
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (['+', '-', '*', '/'].includes(button.textContent)) {
+                console.log(button.textContent);
+            } else if (!isNaN(button.textContent)) {
+                console.log(button.textContent);
+            }
+        });
+    });
 }
 
 calculator();
