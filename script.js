@@ -142,14 +142,29 @@ const calculator = function calculatorController() {
             // Checks to see if button is decimal
             else if (button.textContent === '.') {
                 if (operator === null && !hasDecimal(firstNum)) {
-                    if (firstNum === null) firstNum = '0';
+                    if (firstNum === null || firstNum === '') firstNum = '0';
                     firstNum = `${firstNum}${button.textContent}`;
                     updateWindow(firstNum);
                 } else if (!hasDecimal(secondNum)) {
-                    if (secondNum === null) secondNum = '0';
+                    if (secondNum === null || secondNum === '') secondNum = '0';
                     secondNum = `${secondNum}${button.textContent}`;
                     updateWindow(secondNum);
                 }
+            }
+
+            else if (['ce', 'c'].includes(button.textContent)) {
+                if (button.textContent === 'ce') {
+                    if (secondNum !== null) {
+                        secondNum = '';
+                    } else {
+                        firstNum = '';
+                    }
+                } else {
+                    firstNum = null;
+                    secondNum = null;
+                    operator = null;
+                }
+                updateWindow('0');
             }
         });
     });
