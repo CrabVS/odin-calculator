@@ -15,16 +15,23 @@ const divide = function addNumbers(numOne, numTwo) {
 }
 
 const operate = function operate(numOne, numTwo, operator) {
+    let result;
     switch (operator) {
         case '+':
-            return add(numOne, numTwo);
+            result = add(numOne, numTwo);
+            break;
         case '-':
-            return subtract(numOne, numTwo);
+            result = subtract(numOne, numTwo);
+            break;
         case '*':
-            return multiply(numOne, numTwo);
+            result = multiply(numOne, numTwo);
+            break;
         case '/':
-            return divide(numOne, numTwo);
+            result = divide(numOne, numTwo);
+            break;
     }
+
+    return +result.toFixed(6);
 }
 
 const createCalculator = function createCalculatorButtons() {
@@ -63,7 +70,13 @@ const shouldOperate = function shouldOperate(numOne, numTwo, operator) {
 const updateWindow = function updateCalculatorWindow(newText) {
     const calculatorWindowEl = document.getElementById('calculator-window');
 
-    calculatorWindowEl.textContent = newText;
+    if (newText !== null) {
+        let newTextArray = newText.split('');
+        newTextArray.splice(12);
+        console.log(newTextArray);
+    
+        calculatorWindowEl.textContent = newTextArray.join('');
+    }
 }
 
 const hasDecimal = function hasDecimal(num) {
