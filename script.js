@@ -15,7 +15,7 @@ const divide = function addNumbers(numOne, numTwo) {
 }
 
 const operate = function operate(numOne, numTwo, operator) {
-    switch (opertor) {
+    switch (operator) {
         case '+':
             add(numOne, numTwo);
             break;
