@@ -96,6 +96,7 @@ const calculator = function calculatorController() {
                     updateWindow(firstNum);
                 } else if (firstNum === null) {
                     firstNum = calculatorWindowEl.textContent;
+                    secondNum = '';
                 }
                 operator = button.textContent;
             }
@@ -152,6 +153,7 @@ const calculator = function calculatorController() {
                 }
             }
 
+            // Checks if button is clear and clear all
             else if (['ce', 'c'].includes(button.textContent)) {
                 if (button.textContent === 'ce') {
                     if (secondNum !== null) {
@@ -165,6 +167,31 @@ const calculator = function calculatorController() {
                     operator = null;
                 }
                 updateWindow('0');
+            }
+
+            // defaults to backspace
+            else {
+                if (secondNum !== null) {
+                    if (secondNum !== '') {
+                        let newNum = secondNum.split('');
+                        newNum.pop();
+                        secondNum = newNum.join('');
+                        if (secondNum === '') {
+                            secondNum = '';
+                            updateWindow('0');
+                        } else updateWindow(secondNum);
+                    }
+                } else if (firstNum !== null) {
+                    if (firstNum !== '') {
+                        let newNum = firstNum.split('');
+                        newNum.pop();
+                        firstNum = newNum.join('');
+                        if (firstNum === '') {
+                            firstNum = '';
+                            updateWindow('0');
+                        } else updateWindow(firstNum);
+                    }
+                }
             }
         });
     });
