@@ -72,7 +72,9 @@ const calculator = function calculatorController() {
     let operator = null;
 
     createCalculator();
+
     const buttons = [...document.querySelectorAll('.btn')];
+    const calculatorWindowEl = document.getElementById('calculator-window');
     buttons.forEach(button => {
         button.addEventListener('click', () => {
 
@@ -82,6 +84,8 @@ const calculator = function calculatorController() {
                     secondNum = null;
 
                     updateWindow(firstNum);
+                } else if (firstNum === null) {
+                    firstNum = calculatorWindowEl.textContent;
                 }
                 operator = button.textContent;
             }
@@ -95,6 +99,16 @@ const calculator = function calculatorController() {
                     if (secondNum === null) secondNum = '';
                     secondNum = `${secondNum}${button.textContent}`;
                     updateWindow(secondNum);
+                }
+            }
+
+            else if (button.textContent === '=') {
+                if (shouldOperate(firstNum, secondNum, operator)) {
+                    result = operate(+firstNum, +secondNum, operator).toString();
+                    updateWindow(result);
+                    firstNum = null;
+                    secondNum = null;
+                    operator = null;
                 }
             }
         });
