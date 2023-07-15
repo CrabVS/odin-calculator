@@ -66,6 +66,15 @@ const updateWindow = function updateCalculatorWindow(newText) {
     calculatorWindowEl.textContent = newText;
 }
 
+const hasDecimal = function hasDecimal(num) {
+    if (!isNaN(num) && num !== null) {
+        let numArray = num.toString().split('');
+        if (numArray.includes('.')) {
+            return true;
+        }
+    } return false
+}
+
 const calculator = function calculatorController() {
     let firstNum = null;
     let secondNum = null;
@@ -78,6 +87,7 @@ const calculator = function calculatorController() {
     buttons.forEach(button => {
         button.addEventListener('click', () => {
 
+            // Checks to see if the button is an operator
             if (['+', '-', '*', '/'].includes(button.textContent)) {
                 if (shouldOperate(firstNum, secondNum, operator)) {
                     firstNum = operate(+firstNum, +secondNum, operator).toString();
@@ -90,6 +100,7 @@ const calculator = function calculatorController() {
                 operator = button.textContent;
             }
             
+            // Checks to see if the button is a number
             else if (!isNaN(button.textContent)) {
                 if (operator === null) {
                     if (firstNum === null) firstNum = '';
@@ -102,6 +113,7 @@ const calculator = function calculatorController() {
                 }
             }
 
+            // Checks to see if button is equal
             else if (button.textContent === '=') {
                 if (shouldOperate(firstNum, secondNum, operator)) {
                     result = operate(+firstNum, +secondNum, operator).toString();
@@ -109,6 +121,34 @@ const calculator = function calculatorController() {
                     firstNum = null;
                     secondNum = null;
                     operator = null;
+                }
+            }
+
+            // Checks to see if button is +/-
+            else if (button.textContent === '±') {
+                if (operator === null) {
+                    if (firstNum !== null && firstNum !== 0) {
+                        firstNum *= -1;
+                    }
+                    updateWindow(firstNum);
+                } else {
+                    if (secondNum !== null && firstNum !== 0) {
+                        secondNum *= -1;
+                    }
+                    updateWindow(secondNum);
+                }
+            }
+
+            // Checks to see if button is decimal
+            else if (button.textContent === '.') {
+                if (operator === null && !hasDecimal(firstNum)) {
+                    if (firstNum === null) firstNum = '0';
+                    firstNum = `${firstNum}${button.textContent}`;
+                    updateWindow(firstNum);
+                } else if (!hasDecimal(secondNum)) {
+                    if (secondNum === null) secondNum = '0';
+                    secondNum = `${secondNum}${button.textContent}`;
+                    updateWindow(secondNum);
                 }
             }
         });
