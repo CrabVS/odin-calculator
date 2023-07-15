@@ -60,8 +60,13 @@ const shouldOperate = function shouldOperate(numOne, numTwo, operator) {
     } return true;
 }
 
-const calculator = function calculatorController() {
+const updateWindow = function updateCalculatorWindow(newText) {
     const calculatorWindowEl = document.getElementById('calculator-window');
+
+    calculatorWindowEl.textContent = newText;
+}
+
+const calculator = function calculatorController() {
     let firstNum = null;
     let secondNum = null;
     let operator = null;
@@ -76,7 +81,7 @@ const calculator = function calculatorController() {
                     firstNum = operate(+firstNum, +secondNum, operator).toString();
                     secondNum = null;
 
-                    console.log(firstNum);
+                    updateWindow(firstNum);
                 }
                 operator = button.textContent;
             }
@@ -85,12 +90,12 @@ const calculator = function calculatorController() {
                 if (operator === null) {
                     if (firstNum === null) firstNum = '';
                     firstNum = `${firstNum}${button.textContent}`;
+                    updateWindow(firstNum);
                 } else {
                     if (secondNum === null) secondNum = '';
                     secondNum = `${secondNum}${button.textContent}`;
+                    updateWindow(secondNum);
                 }
-                console.log(firstNum);
-                console.log(secondNum);
             }
         });
     });
