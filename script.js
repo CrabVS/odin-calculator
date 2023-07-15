@@ -14,6 +14,26 @@ const divide = function addNumbers(numOne, numTwo) {
     return numOne / numTwo;
 }
 
+const operate = function operate(numOne, numTwo, operator) {
+    switch (opertor) {
+        case '+':
+            add(numOne, numTwo);
+            break;
+
+        case '-':
+            subtract(numOne, numTwo);
+            break;
+
+        case '*':
+            multiply(numOne, numTwo);
+            break;
+
+        case '/':
+            divide(numOne, numTwo);
+            break;
+    }
+}
+
 const calculator = function calculatorController() {
     let firstNum = null;
     let secondNum = null;
